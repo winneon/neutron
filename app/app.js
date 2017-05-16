@@ -9,14 +9,8 @@ class App {
     this.electron = electron
     this.app = electron.app
 
-    this.window = new Window()
     this.journal = new Journal()
-
-    this.journal.watch((location) => {
-      if (this.window.ready){
-        this.window.mainWindow.webContents.send('location', this.journal.location, this.journal.coords)
-      }
-    })
+    this.window = new Window()
   }
 
   register(listener, obj){

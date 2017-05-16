@@ -2,10 +2,7 @@
   "name": "neutron",
   "description": "A desktop front-end for Spansh's neutron router.",
   "author": "Jesse Bryan <jesse@winneon.moe>",
-  "version": "0.2.2",
-  "build": {
-    "asar": false
-  },
+  "version": "0.2.3",
   "xo": {
     "space": true,
     "semicolon": false
@@ -33,7 +30,7 @@
     "build": "cross-env NODE_ENV=production npm run webpack",
     "dev": "npm run webpack",
     "dist": "npm run build && npm run sass && build",
-    "pack": "npm run build && npm run sass && build --dir",
+    "pack": "npm run dev && npm run sass && build --dir",
     "postinstall": "install-app-deps",
     "sass": "node-sass --include-path sass --output-style compressed sass/base.scss app/dist/bundle.css",
     "start": "npm run dev && npm run sass && electron app",

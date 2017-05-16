@@ -1,14 +1,19 @@
 'use strict'
 
-import electron from 'electron'
+import settings from 'electron-settings'
 import path from 'path'
 import fs from 'fs'
 import readline from 'readline'
 
 class Journal {
   constructor(){
-    this.directory = path.join(process.env.USERPROFILE, 'Saved Games', 'Frontier Developments', 'Elite Dangerous')
+    if (!settings.get('journal')){
+      settings.set('journal', path.join(process.env.USERPROFILE, 'Saved Games', 'Frontier Developments', 'Elite Dangerous'))
+    }
+
+    this.directory = settings.get('journal')
     this.location = undefined
+
     this.coords = {
       x: -1,
       y: -1,
@@ -25,7 +30,11 @@ class Journal {
       let array = []
 
       reader.on('line', (line) => {
-        array.push(JSON.parse(line))
+        try {
+          array.push(JSON.parse(line))
+        } catch (e){
+          reader.close()
+        }
       })
 
       reader.on('close', () => {
@@ -48,6 +57,11 @@ class Journal {
         callback(oldLocation !== this.location)
       })
     })
+  }
+
+  setDirectory(directory){
+    this.directory = directory
+    settings.set('journal', directory)
   }
 
   watch(callback){
