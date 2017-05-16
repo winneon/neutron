@@ -1,0 +1,13 @@
+{
+  "name": "neutron",
+  "description": "A desktop front-end for Spansh's neutron router.",
+  "author": "Jesse Bryan <jesse@winneon.moe>",
+  "productName": "Neutron",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "6.24.1",
+    "source-map-support": "0.4.15"
+  }
+}

@@ -1,0 +1,13 @@
+* {
+    &:focus {
+        outline: none;
+    }
+}
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    -webkit-user-select: none;
+    cursor: default !important;
+}
