@@ -1,6 +1,6 @@
 'use strict'
 
-import { ipcRenderer as ipc, clipboard } from 'electron'
+import { ipcRenderer as ipc, clipboard, remote } from 'electron'
 import React from 'React'
 import jQuery from 'jquery'
 import AutoComplete from 'autocomplete-js'
@@ -75,12 +75,32 @@ class Container extends React.Component {
     }, 'input#dest')
 
     document.querySelector('span.location').onclick = (event) => {
-      let element = event.target;
+      let element = event.target
 
       if (element.innerHTML !== 'Unknown'){
         document.querySelector('input#source').value = element.innerHTML
       }
     }
+
+    document.querySelector('i.back').onclick = (event) => {
+      let element = event.target
+
+      if (this.route && element.parentNode.classList.contains('routing')){
+        this.route = undefined
+        this._toggleInputs(false)
+
+        document.querySelector('div.box').style.top = "0px"
+        document.querySelector('div.info').style.top = "0px"
+        document.querySelector('h1').classList.remove('routing')
+
+        setTimeout(() => {
+          document.querySelector('div.box').style.zIndex = '1'
+          ipc.send('height', 111)
+        }, 1000)
+      }
+    }
+
+    document.querySelector('i.close').onclick = event => remote.getCurrentWindow().close()
 
     document.querySelectorAll('input').forEach((element) => {
       let placeholder = element.previousSibling
@@ -121,6 +141,9 @@ class Container extends React.Component {
         this.cont[element.id] = true
       }
     })
+
+    document.querySelector('div.destSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
+    document.querySelector('div.nextSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
 
     ipc.on('location', (event, location, coords) => {
       let element = document.querySelector('span.location')
@@ -196,13 +219,14 @@ class Container extends React.Component {
           }
 
           document.querySelector('div.totalJumpsLeft').innerHTML = name ? ('??? (' + jumps + ')') : jumps
-
           document.querySelector('div.box').style.zIndex = '-1'
           document.querySelector('div.box').style.top = "-288px"
           document.querySelector('div.info').style.top = "-288px"
+          document.querySelector('h1').classList.add('routing')
+
+          clipboard.writeText(data.result.system_jumps[1].system)
 
           ipc.send('height', -111)
-          clipboard.writeText(data.result.system_jumps[1].system)
 
           this.route = {
             pos: 1,
@@ -273,8 +297,10 @@ class Container extends React.Component {
     return (
       <div>
         <h1>
+          <i className="material-icons back">arrow_upward</i>
           <span className="title">Neutron Router</span>
           <span className="location">Unknown</span>
+          <i className="material-icons close">clear</i>
         </h1>
         <div className="box">
           <form id="route" onSubmit={ (event) => this.submitForm(event) }>
