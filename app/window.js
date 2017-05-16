@@ -1,6 +1,6 @@
 'use strict'
 
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, app } from 'electron'
 import path from 'path'
 
 class Window {
@@ -29,6 +29,7 @@ class Window {
 
     this.mainWindow.on('focus', () => this.mainWindow.webContents.send('focus', true))
     this.mainWindow.on('blur', () => this.mainWindow.webContents.send('focus', false))
+    this.mainWindow.on('close', () => app.quit())
 
     if (process.env.NODE_ENV === 'development'){
       this.mainWindow.webContents.openDevTools({

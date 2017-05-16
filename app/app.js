@@ -22,7 +22,7 @@ class App {
   register(listener, obj){
     let listen = !obj ? this.app : obj
 
-    listen.removeAllListeners(listener.name)
+    //listen.removeAllListeners(listener.name)
 
     listen.on(listener.name, (...args) => {
       listener.onEvent(this, args)
