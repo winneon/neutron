@@ -36,7 +36,7 @@ class Journal {
 
           if (item.event === 'FSDJump' || item.event === 'Location'){
             this.location = item.StarSystem
-            
+
             this.coords.x = item.StarPos[0]
             this.coords.y = item.StarPos[1]
             this.coords.z = item.StarPos[2]
