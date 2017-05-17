@@ -148,10 +148,18 @@ class Container extends React.Component {
     ipc.on('location', (event, location, coords) => {
       let element = document.querySelector('span.location')
 
-      element.innerHTML = location
-      element.coordX = coords.x
-      element.coordY = coords.y
-      element.coordZ = coords.z
+      if (location === 'Hyperspace'){
+        element.innerHTML = 'Entering Hyperspace'
+
+        setTimeout(() => {
+          element.innerHTML = location
+        }, 5000)
+      } else {
+        element.innerHTML = location
+        element.coordX = coords.x
+        element.coordY = coords.y
+        element.coordZ = coords.z
+      }
 
       if (this.route && location !== 'Hyperspace'){
         let left = -1
