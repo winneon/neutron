@@ -7,8 +7,12 @@ import readline from 'readline'
 
 class Journal {
   constructor(){
-    if (!settings.get('journal')){
-      settings.set('journal', path.join(process.env.USERPROFILE, 'Saved Games', 'Frontier Developments', 'Elite Dangerous'))
+    try {
+      if (!settings.get('journal')){
+        settings.set('journal', path.join(process.env.USERPROFILE, 'Saved Games', 'Frontier Developments', 'Elite Dangerous'))
+      }
+    } catch (e) {
+      require('electron').app.quit()
     }
 
     this.directory = settings.get('journal')

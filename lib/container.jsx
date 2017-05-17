@@ -170,7 +170,12 @@ class Container extends React.Component {
         }
 
         if (left === 0 && document.querySelector('div.nextSystem').innerHTML !== location){
-          // replot that shit!
+          document.querySelector('i.back').click()
+
+          setTimeout(() => {
+            document.querySelector('input#source').value = location
+            document.querySelector('form').submit()
+          }, 1250)
         } else if (document.querySelector('div.nextSystem').innerHTML === location){
           this.route.pos++
 
