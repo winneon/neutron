@@ -52,6 +52,12 @@ class Journal {
 
             break
           }
+
+          if (item.event === 'StartJump' && item.JumpType === 'Hyperspace'){
+            this.location = 'Hyperspace'
+
+            break
+          }
         }
 
         callback(oldLocation !== this.location)

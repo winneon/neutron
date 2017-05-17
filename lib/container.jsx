@@ -153,7 +153,7 @@ class Container extends React.Component {
       element.coordY = coords.y
       element.coordZ = coords.z
 
-      if (this.route){
+      if (this.route && location !== 'Hyperspace'){
         let left = -1
         let totalLeft = -1
 
@@ -169,12 +169,19 @@ class Container extends React.Component {
           return
         }
 
-        if (left === 0 || document.querySelector('div.nextSystem').innerHTML === location){
+        if (left === 0 && document.querySelector('div.nextSystem').innerHTML !== location){
+          // replot that shit!
+        } else if (document.querySelector('div.nextSystem').innerHTML === location){
           this.route.pos++
 
           document.querySelector('div.nextSystem').innerHTML = this.route.systems[this.route.pos].system
-          document.querySelector('div.isNeutron').innerHTML = this.route.systems[this.route.pos].neutron_star === true ? 'Yes' : 'No'
           document.querySelector('div.jumpsLeft').innerHTML = this.route.systems[this.route.pos].jumps
+
+          if (this.route.systems[this.route.pos].neutron_star === '???'){
+            document.querySelector('div.isNeutron').innerHTML = this.route.systems[this.route.pos].neutron_star
+          } else {
+            document.querySelector('div.isNeutron').innerHTML = this.route.systems[this.route.pos].neutron_star ? 'Yes' : 'No'
+          }
 
           clipboard.writeText(this.route.systems[this.route.pos].system)
 
@@ -196,7 +203,11 @@ class Container extends React.Component {
         if (data.status === 'ok'){
           console.log(data.result)
 
-          if (name){
+          if (name || document.querySelector('span.location').innerHTML !== data.result.source_system){
+            if (document.querySelector('span.location').innerHTML !== data.result.source_system){
+              name = data.result.source_system
+            }
+
             data.result.system_jumps.splice(1, 0, {
               system: name,
               jumps: '???',
@@ -206,7 +217,13 @@ class Container extends React.Component {
 
           document.querySelector('div.destSystem').innerHTML = data.result.destination_system
           document.querySelector('div.nextSystem').innerHTML = data.result.system_jumps[1].system
-          document.querySelector('div.isNeutron').innerHTML = data.result.system_jumps[1].neutron_star === true ? 'Yes' : 'No'
+
+          if (data.result.system_jumps[1].neutron_star === '???'){
+            document.querySelector('div.isNeutron').innerHTML = data.result.system_jumps[1].neutron_star
+          } else {
+            document.querySelector('div.isNeutron').innerHTML = data.result.system_jumps[1].neutron_star ? 'Yes' : 'No'
+          }
+
           document.querySelector('div.jumpsLeft').innerHTML = data.result.system_jumps[1].jumps
 
           let jumps = 0
