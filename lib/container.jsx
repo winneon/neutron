@@ -182,7 +182,7 @@ class Container extends React.Component {
 
           setTimeout(() => {
             document.querySelector('input#source').value = location
-            document.querySelector('form').submit()
+            document.querySelector('button').click()
           }, 1250)
         } else if (document.querySelector('div.nextSystem').innerHTML === location){
           this.route.pos++
@@ -196,12 +196,22 @@ class Container extends React.Component {
             document.querySelector('div.isNeutron').innerHTML = this.route.systems[this.route.pos].neutron_star ? 'Yes' : 'No'
           }
 
-          clipboard.writeText(this.route.systems[this.route.pos].system)
-
           if (isNaN(document.querySelector('div.totalJumpsLeft').innerHTML)){
             let html = document.querySelector('div.totalJumpsLeft').innerHTML
             document.querySelector('div.totalJumpsLeft').innerHTML = html.substring(5, html.length - 1)
+          } else {
+            let jumps = 0
+
+            for (let i = this.route.pos; i < this.route.system_jumps.length; i++){
+              if (!isNaN(this.route.system_jumps[i].jumps)){
+                jumps = jumps + this.route.system_jumps[i].jumps
+              }
+            }
+
+            document.querySelector('div.totalJumpsLeft').innerHTML = jumps
           }
+
+          clipboard.writeText(this.route.systems[this.route.pos].system)
         }
       }
     })
@@ -243,7 +253,6 @@ class Container extends React.Component {
 
           for (let i = 0; i < data.result.system_jumps.length; i++){
             if (!isNaN(data.result.system_jumps[i].jumps)){
-              console.log(data.result.system_jumps[i].jumps)
               jumps = jumps + data.result.system_jumps[i].jumps
             }
           }
