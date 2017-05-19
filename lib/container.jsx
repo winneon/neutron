@@ -173,7 +173,7 @@ class Container extends React.Component {
           document.querySelector('div.totalJumpsLeft').innerHTML = totalLeft
         }
 
-        if (totalLeft === 0){
+        if (totalLeft === 0 && document.querySelector('div.nextSystem').innerHTML === location){
           return
         }
 
