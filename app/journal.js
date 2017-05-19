@@ -12,6 +12,7 @@ class Journal {
         settings.set('journal', path.join(process.env.USERPROFILE, 'Saved Games', 'Frontier Developments', 'Elite Dangerous'))
       }
     } catch (e) {
+      fs.mkdirSync(path.join(process.env.APPDATA, 'Neutron'))
       require('electron').app.quit()
     }
 
