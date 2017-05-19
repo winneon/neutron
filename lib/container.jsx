@@ -202,15 +202,16 @@ class Container extends React.Component {
           } else {
             let jumps = 0
 
-            for (let i = this.route.pos; i < this.route.system_jumps.length; i++){
-              if (!isNaN(this.route.system_jumps[i].jumps)){
-                jumps = jumps + this.route.system_jumps[i].jumps
+            for (let i = this.route.pos; i < this.route.systems.length; i++){
+              if (!isNaN(this.route.systems[i].jumps)){
+                jumps = jumps + this.route.systems[i].jumps
               }
             }
 
             document.querySelector('div.totalJumpsLeft').innerHTML = jumps
           }
 
+          clipboard.clear()
           clipboard.writeText(this.route.systems[this.route.pos].system)
         }
       }
