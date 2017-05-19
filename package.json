@@ -2,7 +2,7 @@
   "name": "neutron",
   "description": "A desktop front-end for Spansh's neutron router.",
   "author": "Jesse Bryan <jesse@winneon.moe>",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "xo": {
     "space": true,
     "semicolon": false
