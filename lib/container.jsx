@@ -89,7 +89,6 @@ class Container extends React.Component {
 
       if (this.route && element.parentNode.classList.contains('routing')){
         this.route = undefined
-        Utils.toggleInputs(false)
 
         document.querySelector('div.box').style.top = "0px"
         document.querySelector('div.info').style.top = "0px"
@@ -97,7 +96,9 @@ class Container extends React.Component {
 
         setTimeout(() => {
           document.querySelector('div.box').style.zIndex = '1'
-          ipc.send('height', 111)
+          Utils.toggleInputs(false)
+
+          ipc.send('height', 55)
         }, 1000)
       }
     }
@@ -146,8 +147,20 @@ class Container extends React.Component {
 
     document.querySelector('div.destSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
     document.querySelector('div.nextSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
+    document.querySelector('button.replot').onclick = event => Utils.replot(document.querySelector('span.location').innerHTML)
+    document.querySelector('button.skip').onclick = event => ipc.send('skip')
 
-    ipc.on('location', (event, location, coords) => {
+    document.querySelector('button.toggle').onclick = function(event){
+      let element = this
+      let skip = document.querySelector('button.skip')
+
+      element.classList.toggle('off')
+      skip.disabled = !element.classList.contains('off')
+
+      document.querySelector('button.toggle > i').innerHTML = element.classList.contains('off') ? 'not_interested' : 'done'
+    }
+
+    ipc.on('location', (event, location, coords, skip) => {
       let element = document.querySelector('span.location')
 
       if (location === 'Hyperspace'){
@@ -163,13 +176,17 @@ class Container extends React.Component {
         element.coordZ = coords.z
       }
 
-      if (this.route && location !== 'Hyperspace'){
+      if (this.route && (location !== 'Hyperspace' || skip)){
         let left = -1
         let totalLeft = -1
 
         if (!isNaN(document.querySelector('div.jumpsLeft').innerHTML)){
           left = document.querySelector('div.jumpsLeft').innerHTML - 1
           totalLeft = document.querySelector('div.totalJumpsLeft').innerHTML - 1
+
+          if (left < 0 || totalLeft < 0){
+            return
+          }
 
           document.querySelector('div.jumpsLeft').innerHTML = left
           document.querySelector('div.totalJumpsLeft').innerHTML = totalLeft
@@ -179,14 +196,12 @@ class Container extends React.Component {
           return
         }
 
-        if (left === 0 && document.querySelector('div.nextSystem').innerHTML !== location){
-          document.querySelector('i.back').click()
-
-          setTimeout(() => {
-            document.querySelector('input#source').value = location
-            document.querySelector('button').click()
-          }, 1250)
-        } else if (document.querySelector('div.nextSystem').innerHTML === location){
+        if (left === 0 &&
+            document.querySelector('div.nextSystem').innerHTML !== location &&
+            !document.querySelector('button.toggle').classList.contains('off')){
+          Utils.replot(location)
+        } else if (document.querySelector('div.nextSystem').innerHTML === location ||
+                   (document.querySelector('button.toggle').classList.contains('off') && left === 0)){
           this.route.pos++
 
           document.querySelector('div.nextSystem').innerHTML = this.route.systems[this.route.pos].system
@@ -261,6 +276,11 @@ class Container extends React.Component {
           }
 
           document.querySelector('div.totalJumpsLeft').innerHTML = name ? ('??? (' + jumps + ')') : jumps
+
+          document.querySelector('button.skip').disabled = true
+          document.querySelector('button.toggle').classList.remove('off')
+          document.querySelector('button.toggle > i').innerHTML = 'done'
+
           document.querySelector('div.box').style.zIndex = '-1'
           document.querySelector('div.box').style.top = "-288px"
           document.querySelector('div.info').style.top = "-288px"
@@ -268,7 +288,7 @@ class Container extends React.Component {
 
           clipboard.writeText(data.result.system_jumps[1].system)
 
-          ipc.send('height', -111)
+          ipc.send('height', -55)
 
           this.route = {
             pos: 1,
@@ -338,11 +358,9 @@ class Container extends React.Component {
   render(){
     return (
       <div>
+        <span className="version">(v{ require('../package.json').version })</span>
         <Header title="Neutron Router" />
-        <Inputs
-          version={ `(v${require('../package.json').version})` }
-          onSubmit={ (event) => this.submitForm(event) }
-        />
+        <Inputs onSubmit={ (event) => this.submitForm(event) } />
         <Info />
       </div>
     )

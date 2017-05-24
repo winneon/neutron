@@ -24,6 +24,10 @@ div.info {
         text-overflow: ellipsis;
     }
 
+    div.totalJumpsLeft {
+        margin-bottom: 20px;
+    }
+
     div.destSystem:before {
         content: 'Dest. System: ';
     }
@@ -42,5 +46,13 @@ div.info {
 
     div.totalJumpsLeft:before {
         content: 'Total Jumps Left: ';
+    }
+
+    button.toggle {
+        background-color: #1B5E20;
+
+        &.off {
+            background-color: #B71C1C;
+        }
     }
 }

@@ -23,11 +23,11 @@ class Ready extends Listener {
 
     app.journal.watch((location) => {
       if (app.window.ready){
-        app.window.mainWindow.webContents.send('location', app.journal.location, app.journal.location === 'Hyperspace' ? undefined : app.journal.coords)
+        app.window.mainWindow.webContents.send('location', app.journal.location, app.journal.location === 'Hyperspace' ? undefined : app.journal.coords, false)
       }
     })
 
-    app.window.create()
+    app.window.create(app.production)
     app.window.ready = true
 
     app.register(new ReadyToShow(), app.window.mainWindow)

@@ -14,9 +14,8 @@ class Inputs extends React.Component {
           <Input id="dest" name="to" placeholder="Destination System" />
           <Input id="range" name="range" placeholder="Range (LY)" />
           <Input id="efficiency" name="efficiency" placeholder="Efficiency (%, Default 100)" />
-          <button type="submit">Submit</button>
+          <button className="search" type="submit" style={{ width: '88px' }}>Submit</button>
         </form>
-        <span className="version">{ this.props.version }</span>
       </div>
     )
   }

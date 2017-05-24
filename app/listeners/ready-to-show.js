@@ -1,7 +1,7 @@
 'use strict'
 
-import Listener from '../listener'
 import { ipcMain as ipc } from 'electron'
+import Listener from '../listener'
 
 class ReadyToShow extends Listener {
   constructor(){
@@ -19,6 +19,10 @@ class ReadyToShow extends Listener {
 
     ipc.on('height', (event, change) => {
       app.window.mainWindow.setSize(app.window.mainWindow.getSize()[0], app.window.mainWindow.getSize()[1] + change)
+    })
+
+    ipc.on('skip', () => {
+      app.window.mainWindow.webContents.send('location', app.journal.location, app.journal.location === 'Hyperspace' ? undefined : app.journal.coords, true)
     })
   }
 }
