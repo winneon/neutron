@@ -21,7 +21,7 @@ class ReadyToShow extends Listener {
       app.window.mainWindow.setSize(app.window.mainWindow.getSize()[0], app.window.mainWindow.getSize()[1] + change)
     })
 
-    ipc.on('skip', () => {
+    ipc.on('skip', (event) => {
       app.window.mainWindow.webContents.send('location', app.journal.location, app.journal.location === 'Hyperspace' ? undefined : app.journal.coords, true)
     })
   }

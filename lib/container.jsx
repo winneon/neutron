@@ -145,6 +145,8 @@ class Container extends React.Component {
       }
     })
 
+    let that = this
+
     document.querySelector('div.destSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
     document.querySelector('div.nextSystem').onclick = event => clipboard.writeText(event.target.innerHTML)
     document.querySelector('button.replot').onclick = event => Utils.replot(document.querySelector('span.location').innerHTML)
@@ -158,6 +160,10 @@ class Container extends React.Component {
       skip.disabled = !element.classList.contains('off')
 
       document.querySelector('button.toggle > i').innerHTML = element.classList.contains('off') ? 'not_interested' : 'done'
+
+      if (!element.classList.contains('off') && that.route.skipped){
+        Utils.replot(document.querySelector('span.location').innerHTML)
+      }
     }
 
     ipc.on('location', (event, location, coords, skip) => {
@@ -195,6 +201,10 @@ class Container extends React.Component {
         if (totalLeft === 0 && (document.querySelector('div.nextSystem').innerHTML === location || skip)){
           document.querySelector('i.back').click()
           return
+        }
+
+        if (skip){
+          this.route.skipped = true
         }
 
         if (left === 0 &&
@@ -293,11 +303,13 @@ class Container extends React.Component {
 
           this.route = {
             pos: 1,
-            systems: data.result.system_jumps
+            systems: data.result.system_jumps,
+            skipped: false
           }
 
           return
         } else if (times === 1000) {
+          remote.dialog.showErrorBox('Error', 'Timed out.')
           console.log("Timed out.")
         } else {
           times++
@@ -308,7 +320,9 @@ class Container extends React.Component {
 
         Utils.toggleInputs(false)
       }).fail((error) => {
+        remote.dialog.showErrorBox('Error', error)
         console.log(error)
+
         Utils.toggleInputs(false)
       })
     }
@@ -326,7 +340,9 @@ class Container extends React.Component {
     jQuery.getJSON(endpoint + '/api/route?' + jQuery('form').serialize(), (data) => {
       this._runInterval(data)
     }).fail((error) => {
-      if (JSON.parse(error.responseText).error === 'Could not find starting system'){
+      let parsed = JSON.parse(error.responseText)
+
+      if (parsed.error === 'Could not find starting system'){
         let element = document.querySelector('span.location')
 
         let coords = {
@@ -347,10 +363,21 @@ class Container extends React.Component {
 
           Utils.toggleInputs(true)
         }).fail((error) => {
+          parsed = JSON.parse(error.responseText)
+          remote.dialog.showErrorBox(error.statusText, parsed.error)
+
           console.log(error)
           Utils.toggleInputs(false)
         })
       } else {
+        if (parsed.error === 'from, to and range are required'){
+          remote.dialog.showErrorBox(error.statusText, 'Source System, Destination System, and Range are required values.')
+        } else if (parsed.error === 'Could not find finishing system'){
+          remote.dialog.showErrorBox(error.statusText, 'Destination System is invalid.')
+        } else {
+          remote.dialog.showErrorBox(error.statusText, parsed.error)
+        }
+
         console.log(error)
         Utils.toggleInputs(false)
       }

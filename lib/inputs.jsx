@@ -12,7 +12,7 @@ class Inputs extends React.Component {
         <form id="route" onSubmit={ this.props.onSubmit }>
           <Input id="source" name="from" placeholder="Source System" />
           <Input id="dest" name="to" placeholder="Destination System" />
-          <Input id="range" name="range" min="0" type="number" placeholder="Range (LY)" />
+          <Input id="range" name="range" min="10" max="100" type="number" placeholder="Range (LY)" />
           <Input id="efficiency" name="efficiency" min="0" max="100" type="number" placeholder="Efficiency (%, Default 100)" />
           <button className="search" type="submit" style={{ width: '88px' }}>Submit</button>
         </form>
