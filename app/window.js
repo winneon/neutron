@@ -1,7 +1,9 @@
 'use strict'
 
 import { BrowserWindow, app } from 'electron'
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import path from 'path'
+import fs from 'fs'
 
 class Window {
   constructor(){
@@ -26,6 +28,10 @@ class Window {
 
     this.mainWindow = new BrowserWindow(opts)
     this.mainWindow.loadURL(path.join(__dirname, 'index.html'))
+
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(() => console.log('Added React Developer Tools.'))
+      .catch(err => console.error('Error installing React Developer Tools: ', err))
 
     this.mainWindow.on('focus', () => this.mainWindow.webContents.send('focus', true))
     this.mainWindow.on('blur', () => this.mainWindow.webContents.send('focus', false))
