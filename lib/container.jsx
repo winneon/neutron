@@ -319,6 +319,10 @@ class Container extends React.Component {
   submitForm(event){
     let endpoint = 'https://www.spansh.co.uk'
 
+    if (document.querySelector('input#efficiency').value === ''){
+      document.querySelector('input#efficiency').value = 100
+    }
+
     jQuery.getJSON(endpoint + '/api/route?' + jQuery('form').serialize(), (data) => {
       this._runInterval(data)
     }).fail((error) => {
