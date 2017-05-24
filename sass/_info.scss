@@ -1,0 +1,46 @@
+div.info {
+    div {
+        text-transform: capitalize;
+
+        &:before {
+            font-weight: 700;
+        }
+    }
+
+    div.destSystem,
+    div.nextSystem {
+        cursor: pointer;
+    }
+
+    div.nextSystem,
+    div.jumpsLeft {
+        margin-top: 12px;
+    }
+
+    div.nextSystem {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    div.destSystem:before {
+        content: 'Dest. System: ';
+    }
+
+    div.nextSystem:before {
+        content: 'Next System: ';
+    }
+
+    div.isNeutron:before {
+        content: 'Is Next System Neutron: '
+    }
+
+    div.jumpsLeft:before {
+        content: 'Jumps to Next System: ';
+    }
+
+    div.totalJumpsLeft:before {
+        content: 'Total Jumps Left: ';
+    }
+}

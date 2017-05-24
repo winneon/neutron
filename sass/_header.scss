@@ -1,0 +1,68 @@
+h1 {
+    background-color: #212121;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0 ,0, .2), 0px 4px 5px 0px rgba(0, 0, 0, .14), 0px 1px 10px 0px rgba(0, 0, 0, .12);
+    margin: 0px;
+    padding: 20px 80px 20px 40px;
+    color: #FFFFFF;
+    transition: padding-left 1s ease-in-out;
+    -webkit-app-region: drag;
+
+    &.routing {
+        padding-left: 80px;
+
+        & > i.back {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+    }
+
+    span {
+        display: block;
+
+        &.title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+
+        &.location {
+            display: inline-block;
+            max-width: 100%;
+            font-size: 13px;
+            font-weight: 400;
+            text-transform: capitalize;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-app-region: no-drag;
+
+            &:before {
+                content: 'Location: ';
+                font-weight: 700;
+            }
+        }
+    }
+
+    i.back,
+    i.close {
+        position: absolute;
+        top: 0px;
+        margin: 24px;
+        font-size: 36px;
+        cursor: pointer;
+        -webkit-app-region: no-drag;
+    }
+
+    i.back {
+        left: 0px;
+        opacity: 0;
+        visibility: hidden;
+        transition: visibility 0s ease-in-out 1s, opacity 1s ease-in-out;
+    }
+
+    i.close {
+        right: 0px;
+    }
+}

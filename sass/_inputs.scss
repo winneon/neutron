@@ -1,0 +1,82 @@
+div.box {
+    div.wrapper {
+        position: relative;
+    }
+
+    span.remaining {
+        position: absolute;
+        left: 0px;
+        color: #A9A9A9;
+    }
+
+    form {
+        margin: 0px;
+    }
+
+    input {
+        border: none;
+        border-bottom: 2px solid #D5D5D5;
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 0px 0px 8px 0px;
+        font-family: inherit;
+        font-size: 16px;
+        text-transform: capitalize;
+
+        &:not(:placeholder-shown),
+        &:focus {
+            border-bottom-color: #000000;
+        }
+
+        &:disabled {
+            background-color: transparent;
+            border-bottom: 2px solid #D5D5D5;
+            color: #A9A9A9;
+        }
+    }
+
+    button {
+        background-color: #212121;
+        border: none;
+        border-radius: 2px;
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        box-sizing: border-box;
+        height: 36px;
+        min-width: 88px;
+        padding-left: 0px 16px;
+        color: #FFFFFF;
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 36px;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        user-select: none;
+        cursor: pointer;
+        transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:not(:disabled):hover {
+            background-color: #343434;
+        }
+
+        &:not(:disabled):active {
+            background-color: #454545;
+            box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        }
+    }
+
+    i.turn {
+        -webkit-animation-name: spin;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+    }
+
+    span.version {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        color: #A9A9A9;
+    }
+}
