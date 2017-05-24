@@ -1,7 +1,6 @@
 'use strict'
 
 import { dialog } from 'electron'
-import { autoUpdater } from 'electron-updater'
 import fs from 'fs'
 
 import Listener from '../listener'
@@ -13,8 +12,6 @@ class Ready extends Listener {
   }
 
   onEvent(app){
-    if (app.production) autoUpdater.checkForUpdates()
-
     if (!fs.existsSync(app.journal.directory)){
       let directory = dialog.showOpenDialog({
         title: 'Select your Elite: Dangerous journal folder:',
