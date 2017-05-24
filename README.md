@@ -49,7 +49,7 @@ First try restarting the app, and if that fails, jump to a new system. I'm curre
 
 ### My jumps left and total jumps left both show "???"!
 
-This is because EDSM does not know the coordinates of the system you're in. The app has already taken care of this. Your "Next System" should be set to the closest known system to you. Jump to that system and the app should update accordingly with the proper info.
+This is because either EDSM does not know the coordinates of the system you're in, or you're not in the system you set as the source system. The app has already taken care of this. Jump to your "Next System" and the app should update accordingly with the proper info.
 
 ## Credit
 
