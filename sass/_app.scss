@@ -36,14 +36,6 @@ h1 {
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 0.4px;
-
-            & > span {
-                display: inline-block;
-
-                &:last-child {
-                    font-weight: normal;
-                }
-            }
         }
 
         &.location {
@@ -169,6 +161,13 @@ div.box {
         -webkit-animation-duration: 1s;
         -webkit-animation-iteration-count: infinite;
         -webkit-animation-timing-function: linear;
+    }
+
+    span.version {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        color: #A9A9A9;
     }
 }
 

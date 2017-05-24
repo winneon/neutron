@@ -65,13 +65,21 @@ class Container extends React.Component {
     AutoComplete({
       Url: 'https://www.spansh.co.uk/api/systems',
       QueryArg: 'q',
-      _Render: (data) => { this._runAutoComplete(data, document.querySelector('#source')) }
+      _Render: (data) => {
+        if (document.querySelector('#source') === document.activeElement){
+          this._runAutoComplete(data, document.querySelector('#source'))
+        }
+      }
     }, 'input#source')
 
     AutoComplete({
       Url: 'https://www.spansh.co.uk/api/systems',
       QueryArg: 'q',
-      _Render: (data) => { this._runAutoComplete(data, document.querySelector('#dest')) }
+      _Render: (data) => {
+        if (document.querySelector('#dest') === document.activeElement){
+          this._runAutoComplete(data, document.querySelector('#dest'))
+        }
+      }
     }, 'input#dest')
 
     document.querySelector('span.location').onclick = (event) => {
@@ -338,10 +346,7 @@ class Container extends React.Component {
       <div>
         <h1>
           <i className="material-icons back">arrow_upward</i>
-          <span className="title">
-            <span>Neutron Router</span>
-            <span>&nbsp;(v{ require('../package.json').version })</span>
-          </span>
+          <span className="title">Neutron Router</span>
           <span className="location">Unknown</span>
           <i className="material-icons close">clear</i>
         </h1>
@@ -365,6 +370,7 @@ class Container extends React.Component {
             </div>
             <button type="submit">Submit</button>
           </form>
+          <span className="version">(v{ require('../package.json').version })</span>
         </div>
         <div className="info">
           <div className="destSystem">Unknown</div>
