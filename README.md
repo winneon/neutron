@@ -43,6 +43,10 @@ This is because I don't have upwards of $200 to pay for a code-signing certifica
 
 See the above.
 
+### My location says "Unknown" when I'm in a system in-game!
+
+First try restarting the app, and if that fails, jump to a new system. I'm currently unsure as to why this issue is occurring, but trying those two fixes seems to do the job for now.
+
 ## Credit
 
 Obviously, I could not have done this without Spansh's amazing [Neutron Router](https://www.spansh.co.uk/) tool. I've used his/her tool countless times, and it has saved me so much time when going on a long trip across the galaxy. Be sure to check it out!
