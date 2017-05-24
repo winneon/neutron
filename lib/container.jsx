@@ -192,7 +192,8 @@ class Container extends React.Component {
           document.querySelector('div.totalJumpsLeft').innerHTML = totalLeft
         }
 
-        if (totalLeft === 0 && document.querySelector('div.nextSystem').innerHTML === location){
+        if (totalLeft === 0 && (document.querySelector('div.nextSystem').innerHTML === location || skip)){
+          document.querySelector('i.back').click()
           return
         }
 
