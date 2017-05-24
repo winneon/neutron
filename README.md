@@ -19,7 +19,7 @@ Currently, Neutron is Windows x64 only, however I will expand it to macOS in the
 
 ### Stable
 
-To install, go to the [latest release]( https://github.com/winneon/neutron/releases/latest), download the neutron-setup.exe file, and run it! It's that simple! Neutron should be available as shortcuts on your desktop and start menu afterwards.
+To install, go to the [latest release]( https://github.com/winneon/neutron/releases/latest), download the neutron.exe file, and run it! It's that simple! Neutron should be available as shortcuts on your desktop and start menu afterwards.
 
 ### Dev
 
