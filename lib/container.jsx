@@ -1,9 +1,14 @@
 'use strict'
 
 import { ipcRenderer as ipc, clipboard, remote } from 'electron'
-import React from 'React'
-import jQuery from 'jquery'
+import React from 'react'
 import AutoComplete from 'autocomplete-js'
+import jQuery from 'jquery'
+
+import Utils from './utils'
+import Header from './header.jsx'
+import Inputs from './inputs.jsx'
+import Info from './info.jsx'
 
 class Container extends React.Component {
   constructor(){
@@ -50,17 +55,6 @@ class Container extends React.Component {
     }
   }
 
-  _toggleInputs(bool){
-    document.querySelectorAll('form input').forEach(input => input.disabled = bool)
-    document.querySelector('button').disabled = bool
-
-    if (bool){
-      document.querySelector('button').innerHTML = '<i class="material-icons turn" style="font-size: 18px;">sync</i>'
-    } else {
-      document.querySelector('button').innerHTML = 'Submit'
-    }
-  }
-
   componentDidMount(){
     AutoComplete({
       Url: 'https://www.spansh.co.uk/api/systems',
@@ -95,7 +89,7 @@ class Container extends React.Component {
 
       if (this.route && element.parentNode.classList.contains('routing')){
         this.route = undefined
-        this._toggleInputs(false)
+        Utils.toggleInputs(false)
 
         document.querySelector('div.box').style.top = "0px"
         document.querySelector('div.info').style.top = "0px"
@@ -291,10 +285,10 @@ class Container extends React.Component {
           return
         }
 
-        this._toggleInputs(false)
+        Utils.toggleInputs(false)
       }).fail((error) => {
         console.log(error)
-        this._toggleInputs(false)
+        Utils.toggleInputs(false)
       })
     }
 
@@ -320,65 +314,36 @@ class Container extends React.Component {
           let name = data.system.name
 
           document.querySelector('input#source').value = name
-          this._toggleInputs(false)
+          Utils.toggleInputs(false)
 
           jQuery.getJSON(endpoint + '/api/route?' + jQuery('form').serialize(), (data) => {
             this._runInterval(data, name)
           })
 
-          this._toggleInputs(true)
+          Utils.toggleInputs(true)
         }).fail((error) => {
           console.log(error)
-          this._toggleInputs(false)
+          Utils.toggleInputs(false)
         })
       } else {
         console.log(error)
-        this._toggleInputs(false)
+        Utils.toggleInputs(false)
       }
     })
 
-    this._toggleInputs(true)
+    Utils.toggleInputs(true)
     if (event) event.preventDefault()
   }
 
   render(){
     return (
       <div>
-        <h1>
-          <i className="material-icons back">arrow_upward</i>
-          <span className="title">Neutron Router</span>
-          <span className="location">Unknown</span>
-          <i className="material-icons close">clear</i>
-        </h1>
-        <div className="box">
-          <form id="route" onSubmit={ (event) => this.submitForm(event) }>
-            <div className="wrapper">
-              <span className="remaining"></span>
-              <input id="source" name="from" type="text" placeholder="Source System" />
-            </div>
-            <div className="wrapper">
-              <span className="remaining"></span>
-              <input id="dest" name="to" type="text" placeholder="Destination System" />
-            </div>
-            <div className="wrapper">
-              <span className="remaining"></span>
-              <input id="range" name="range" type="number" step="any" min="0" placeholder="Range (LY)" />
-            </div>
-            <div className="wrapper">
-              <span className="remaining"></span>
-              <input id="efficiency" name="efficiency" type="number" step="any" min="0" max="100" placeholder="Efficiency (%, Default 100)" />
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-          <span className="version">(v{ require('../package.json').version })</span>
-        </div>
-        <div className="info">
-          <div className="destSystem">Unknown</div>
-          <div className="nextSystem">Unknown</div>
-          <div className="isNeutron">No</div>
-          <div className="jumpsLeft">0</div>
-          <div className="totalJumpsLeft">0</div>
-        </div>
+        <Header title="Neutron Router" />
+        <Inputs
+          version={ `(v${require('../package.json').version})` }
+          onSubmit={ (event) => this.submitForm(event) }
+        />
+        <Info />
       </div>
     )
   }
