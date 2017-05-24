@@ -47,6 +47,10 @@ See the above.
 
 First try restarting the app, and if that fails, jump to a new system. I'm currently unsure as to why this issue is occurring, but trying those two fixes seems to do the job for now.
 
+### My jumps left and total jumps left both show "???"!
+
+This is because EDSM does not know the coordinates of the system you're in. The app has already taken care of this. Your "Next System" should be set to the closest known system to you. Jump to that system and the app should update accordingly with the proper info.
+
 ## Credit
 
 Obviously, I could not have done this without Spansh's amazing [Neutron Router](https://www.spansh.co.uk/) tool. I've used his/her tool countless times, and it has saved me so much time when going on a long trip across the galaxy. Be sure to check it out!
