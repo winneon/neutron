@@ -338,7 +338,10 @@ class Container extends React.Component {
       <div>
         <h1>
           <i className="material-icons back">arrow_upward</i>
-          <span className="title">Neutron Router</span>
+          <span className="title">
+            <span>Neutron Router</span>
+            <span>&nbsp;(v{ require('../package.json').version })</span>
+          </span>
           <span className="location">Unknown</span>
           <i className="material-icons close">clear</i>
         </h1>

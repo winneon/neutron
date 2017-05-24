@@ -9,6 +9,12 @@ class ReadyToShow extends Listener {
   }
 
   onEvent(app){
+    if (!app.production){
+      app.window.mainWindow.webContents.openDevTools({
+        detach: true
+      })
+    }
+
     app.window.mainWindow.show()
 
     ipc.on('height', (event, change) => {

@@ -36,6 +36,14 @@ h1 {
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 0.4px;
+
+            & > span {
+                display: inline-block;
+
+                &:last-child {
+                    font-weight: normal;
+                }
+            }
         }
 
         &.location {

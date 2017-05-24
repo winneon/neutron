@@ -3,6 +3,7 @@
 import electron from 'electron'
 import Window from './window'
 import Journal from './journal'
+import path from 'path'
 
 class App {
   constructor(){
@@ -11,12 +12,14 @@ class App {
 
     this.journal = new Journal()
     this.window = new Window()
+
+    let pkg = require(path.join(__dirname, 'package.json'))
+
+    this.production = pkg.production
   }
 
   register(listener, obj){
     let listen = !obj ? this.app : obj
-
-    //listen.removeAllListeners(listener.name)
 
     listen.on(listener.name, (...args) => {
       listener.onEvent(this, args)
