@@ -3,7 +3,7 @@
   "description": "A desktop front-end for Spansh's neutron router.",
   "author": "Jesse Bryan <jesse@winneon.moe>",
   "productName": "Neutron",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "main": "index.js",
   "production": false,
   "dependencies": {

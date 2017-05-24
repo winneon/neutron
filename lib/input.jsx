@@ -7,7 +7,7 @@ class Input extends React.Component {
     return (
       <div className="wrapper">
         <span className="remaining"></span>
-        <input id={ this.props.id } name={ this.props.name } min={ this.props.min } max={ this.props.max } type={ this.props.type || "text" } placeholder={ this.props.placeholder } />
+        <input id={ this.props.id } name={ this.props.name } min={ this.props.min } max={ this.props.max } type={ this.props.type || "text" } step="any" placeholder={ this.props.placeholder } />
       </div>
     )
   }
