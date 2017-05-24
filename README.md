@@ -13,12 +13,11 @@ Neutron (name to be changed) is a desktop front-end for Spansh's popular [Neutro
 * Manual route controls.
 * A sexy interface.
 
-
 ## Installation
 
 Currently, Neutron is Windows x64 only, however I will expand it to macOS in the near future. The primary Elite: Dangerous user base is Windows, so I don't feel *too* bad about my laziness.
 
-### Beta
+### Stable
 
 To install, go to the [latest release]( https://github.com/winneon/neutron/releases/latest), download the neutron-setup.exe file, and run it! It's that simple! Neutron should be available as shortcuts on your desktop and start menu afterwards.
 
@@ -31,6 +30,18 @@ $ git clone https://github.com/winneon/neutron
 $ cd neutron && npm install
 $ npm run pack
 ```
+
+## Troubleshooting
+
+If you are having any problems that are not listed below, feel free to create an issue detailing your problem. Please try to provide as much information as possible, as I am not an omniscient being.
+
+### I got a scary Windows error saying it protected my PC!
+
+This is because I don't have upwards of $200 to pay for a code-signing certificate right now. Windows sees that the application is unsigned, and does the logical thing: blocks it. That's okay. If you got a Windows error, click "More Info" and a "Run Anyway" button should appear. Try that and see how it goes. If you got an antivirus error, try allowing the application to go through the antivirus temporarily.
+
+### My antivirus came up when installing this!
+
+See the above.
 
 ## Credit
 
