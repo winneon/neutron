@@ -28,6 +28,10 @@ class Journal {
 
   _checkLocation(callback){
     fs.readdir(this.directory, (err, files) => {
+      files = files.filter(function (str){
+        return str.indexOf('Journal.') !== -1
+      })
+
       let reader = readline.createInterface({
         input: fs.createReadStream(path.join(this.directory, files[files.length - 1]))
       })
